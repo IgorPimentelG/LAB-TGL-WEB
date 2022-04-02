@@ -1,0 +1,14 @@
+{   
+	"user": {
+		"email": "luby@admin.com",
+		"name": "luby",
+		"created_at": "2022-04-01T15:11:40.037-03:00",
+		"updated_at": "2022-04-01T15:11:40.037-03:00",
+		"id": 11
+	},
+	"token": {
+		"type": "bearer",
+		"token": "MTcz.eb6aIhcSL_M6kUP28hk1dQKhjeWneA6vQoJ48KQkEpwIndMRYDMO-dLb9t7G",
+		"expires_at": "2022-04-08T15:11:40.079-03:00"
+	}
+}
