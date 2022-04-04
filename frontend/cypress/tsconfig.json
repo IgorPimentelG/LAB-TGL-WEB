@@ -1,15 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es5", "dom"],
-    "types": ["cypress"]
+    "target": "es6",
+    "lib": ["es6", "dom"],
+    "types": ["cypress", "node", "./support"],
   },
-  "include": [
-    "**/*.ts",
-    "support/index.js", 
-    "support/commands.js", 
-    "plugins/index.js",
-    "../node_modules/@shelex/cypress-allure-plugin/reporter",
-    "../node_modules/cypress"
-  ]
+  "include": ["**/*.ts", "../node_modules/cypress"]
 }

@@ -27,7 +27,7 @@ const NotFound = () => {
                 <Container>
                     <Contents>
                         <FiAlertTriangle size={60} color='#707070'/>
-                        <Title>Page Not Found</Title>
+                        <Title data-cy='text-title'>Page Not Found</Title>
                     </Contents>
 
                     <Button config={{

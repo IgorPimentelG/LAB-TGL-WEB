@@ -31,7 +31,7 @@ const Header = () => {
                 }
                 <MenuRight>
                    {location.pathname !== '/account' && <Link to='/account'><OptionMenu>Account</OptionMenu></Link>}
-                    <Link to='/' onClick={handlerLogout}>
+                    <Link to='/' onClick={handlerLogout} data-cy='logout'>
                         <OptionMenu>Logout <FaArrowRight style={{marginLeft: 10}}/></OptionMenu>
                     </Link>
                 </MenuRight>

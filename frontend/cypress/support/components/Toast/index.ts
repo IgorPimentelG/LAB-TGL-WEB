@@ -2,6 +2,7 @@ class Toast {
 
     verifyMessage(message: string) {
         this.getToast().should('contain.text', message);
+        this.getToast().should('be.visible');
     }
 
     getToast() {

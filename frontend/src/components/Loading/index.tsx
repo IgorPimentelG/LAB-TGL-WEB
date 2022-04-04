@@ -5,7 +5,7 @@ import { Container, Spinner } from './styles';
 
 const LoadingComponent = () => {
     return(
-        <Container>
+        <Container data-cy='loading'>
             <Logo/>
             <Spinner/>
         </Container>

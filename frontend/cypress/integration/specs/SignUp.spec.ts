@@ -1,9 +1,8 @@
-import { toast } from 'react-toastify';
 /// <reference types="cypress"/>
 // @ts-check
 
-import SignUp from '../../support/pages/Forms/SignUp';
-import Toast from '../../support/components/Toast';
+const SignUp = require('../../support/pages/Forms/SignUp/index');
+const Toast = require('../../support/components/Toast/index');
 
 describe('User Registration Tests', () => {
 
@@ -17,14 +16,14 @@ describe('User Registration Tests', () => {
         SignUp.clearForm();
     });
 
-    it('Empty inputs', () => {
+    it('Should invalidate the empty inputs', () => {
         SignUp.register();
         Toast.verifyMessage('Informe o seu nome');
         Toast.verifyMessage('Insira sua senha');
         Toast.verifyMessage('Insira o seu e-mail');
     });
 
-    it('Invalid name input', () => {   
+    it('Should invalidate the name input', () => {   
         const email = 'labluby@email.com';
         const password = 'secret';
         
@@ -43,7 +42,7 @@ describe('User Registration Tests', () => {
         Toast.verifyMessage('Nome muito curto');
     });
 
-    it('Invalid e-mail input', () => {
+    it('Should invalidate the e-mail input', () => {
         SignUp.insertData('LabLuby', 'luby@com', 'secret');
         SignUp.register();
         Toast.verifyMessage('Insira um e-mail válido');
@@ -55,7 +54,7 @@ describe('User Registration Tests', () => {
         Toast.verifyMessage('Insira um e-mail válido');
     });
 
-    it('Invalid password input', () => {
+    it('Should invalidate the password input', () => {
         const name = 'LabLuby';
         const email = 'labluby@email.com';
 
@@ -84,7 +83,7 @@ describe('User Registration Tests', () => {
         SignUp.clearForm();
     });
 
-    it('The E-mail address already exists', () => {
+    it('Should invalidate the E-mail address already exists', () => {
         cy.intercept('POST', '/user/create', (req) => {
             req.continue((res) => {
                 res.send({ fixture: 'emailError.json' });
@@ -104,7 +103,7 @@ describe('User Registration Tests', () => {
         cy.url().should('equal', `${Cypress.config().baseUrl}/sign-up`);
     });
 
-    it('Register Success', () => {
+    it('You must the register with success', () => {
         cy.intercept('POST', '/user/create', (req) => {
             req.continue((res) => {
                 res.send(200, { fixture: 'user.json'});
