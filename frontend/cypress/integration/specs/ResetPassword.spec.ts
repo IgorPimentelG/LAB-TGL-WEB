@@ -1,8 +1,9 @@
 /// <reference types="cypress"/>
 // @ts-check
 
-import ResetPassword from '../../support/pages/Forms/ResetPassword/index';
 import Toast from '../../support/components/Toast/index';
+import ResetPassword from '../../support/pages/Forms/ResetPassword/index';
+import ChangePassword from '../../support/pages/Forms/ChangePassword/index';
 
 describe('Reset Password Tests', () => {
 
@@ -13,30 +14,21 @@ describe('Reset Password Tests', () => {
     beforeEach(() => {
        cy.window().location()
        .then((loc) => {
-           console.log(loc.pathname);
             if(loc.pathname === '/reset-password') {
-                ResetPassword.clearEmailForm();
+                ResetPassword.clearForm();
             } else {
-                ResetPassword.clearPasswordForm();
+                ChangePassword.clearForm();
             }
        });
     });
 
     it('Should invalidate when empty inputs', () => {
-        ResetPassword.sendLink();
+        ResetPassword.submit();
         Toast.verifyMessage('Insira o seu e-mail');
     });
 
     it('Should invalidate the invalid email address input', () => {
-        ResetPassword.insertEmail('luby@');
-        ResetPassword.sendLink();
-        Toast.verifyMessage('Insira um e-mail válido');
-
-        ResetPassword.clearEmailForm();
-
-        ResetPassword.insertEmail('  ');
-        ResetPassword.sendLink();
-        Toast.verifyMessage('Insira um e-mail válido');
+        ResetPassword.validationEmailInput();
     });
 
     it('Should invalidate when user is unregistered', () => {
@@ -45,8 +37,8 @@ describe('Reset Password Tests', () => {
             fixture: 'userNotFound.json'
         }).as('post-resetError');
 
-        ResetPassword.insertEmail('luby@admin.com');
-        ResetPassword.sendLink();
+        ResetPassword.insertData('luby@admin.com');
+        ResetPassword.submit();
 
         cy.wait('@post-resetError').its('response.body')
         .then((res) => {
@@ -60,26 +52,26 @@ describe('Reset Password Tests', () => {
            fixture: 'reset.json'
        }).as('post-resetSuccess');
 
-       ResetPassword.insertEmail('luby@admin.com');
-       ResetPassword.sendLink();
+       ResetPassword.insertData('luby@admin.com');
+       ResetPassword.submit();
 
        cy.wait('@post-resetSuccess').its('response.body').then((res) => {
             Toast.verifyMessage('Defina sua nova senha');
             cy.url().should('equal', `${Cypress.config().baseUrl}/reset-password/${res.token}`);
-            ResetPassword.getPasswordInput().should('is.visible');
-            ResetPassword.getPasswordConfirmInput().should('is.visible');
        });
     });
 
     it('Should invalidate the invalid password input', () => {
-        ResetPassword.insertPassword('sec', 'sec');
-        ResetPassword.confirmChangePassword();
+        ChangePassword.validationPasswordInput();
     });
 
     it('Should invalidate when password and password confirm are different', () => {
-        ResetPassword.insertPassword('secret', '123456');
-        ResetPassword.confirmChangePassword();
+        ChangePassword.insertData('secret', '123456');
+        ChangePassword.submit();
         Toast.verifyMessage('A confirmação de senha é diferente da senha escolhida');
     });
 
+    it('Should change password user with success', () => {
+       
+    });
 });

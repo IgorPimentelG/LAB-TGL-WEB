@@ -10,9 +10,9 @@ class SignUp extends Form {
     }
 
     clearForm() {
-        super.getNameInput().clear();
-        super.getEmailInput().clear();
-        super.getPasswordInput().clear();
+        super.clearNameInput();
+        super.clearEmailInput();
+        super.clearPasswordInput();
     }
 
     submit() {

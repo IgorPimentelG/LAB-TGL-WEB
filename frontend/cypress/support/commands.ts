@@ -6,4 +6,3 @@ Cypress.Commands.add('autoLogin', (router: string) => {
         }
     });
 });
-

@@ -9,16 +9,12 @@ class SignIn extends Form {
     }
 
     submit() {
-       this.getButtonLogIn().click();
+        cy.get(`[data-cy="${ELEMENTS.BUTTON_LOGIN}"]`).click();
     }
 
     clearForm() {
-        super.getEmailInput().clear();
-        super.getPasswordInput().clear();
-    }
-
-    getButtonLogIn() {
-        return cy.get(`[data-cy="${ELEMENTS.BUTTON_LOGIN}"]`);
+        super.clearEmailInput();
+        super.clearPasswordInput();
     }
 }
 
