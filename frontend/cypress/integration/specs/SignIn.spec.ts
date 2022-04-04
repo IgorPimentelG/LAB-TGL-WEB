@@ -7,27 +7,25 @@ import Toast from '../../support/components/Toast/index';
 describe('Authentication Tests', () => {
 
     beforeEach(() => {
+        cy.clearLocalStorage();
         cy.visit('/');
         SignIn.clearForm();
-        cy.clearLocalStorage();
     });
 
-    it('Should invalidate the empty inputs', () => {
-        SignIn.logIn();
+    it('Should invalidate when empty inputs', () => {
+        SignIn.submit();
         Toast.verifyMessage('Insira o seu e-mail');
         Toast.verifyMessage('Insira sua senha');
     });
 
     it('Should invalidate the e-mail input', () => {
-        SignIn.insertData('@mail', '123456');
-        SignIn.logIn();
-        Toast.verifyMessage('Insira um e-mail válido');
+        SignIn.getPasswordInput().type('secret');
+        SignIn.validationEmailInput();
     });
 
     it('Should invalidate the password input', () => {
-        SignIn.insertData('luby@admin.com', '    ');
-        SignIn.logIn();
-        Toast.verifyMessage('Insira sua senha');
+        SignIn.getEmailInput().type('luby@admin.com');
+        SignIn.validationPasswordInput();
     });
 
     it('Should invalidate the unregistered user', () => {
@@ -37,7 +35,7 @@ describe('Authentication Tests', () => {
         }).as('post-loginError');
 
         SignIn.insertData('luby@admin.com', 'secret');
-        SignIn.logIn();
+        SignIn.submit();
 
         cy.wait('@post-loginError')
         .its('response.body')
@@ -54,7 +52,7 @@ describe('Authentication Tests', () => {
 
 
         SignIn.insertData('luby@admin.com', 'secret');
-        SignIn.logIn();
+        SignIn.submit();
 
         cy.wait('@post-loginSuccess')
         .then(() => {
@@ -72,7 +70,6 @@ describe('Authentication Tests', () => {
                 expect(token).to.have.any.keys('type', 'token', 'expires_at');
             });
         });
-
     });
 
    it('Auto authentication success with user token not expired', () => {

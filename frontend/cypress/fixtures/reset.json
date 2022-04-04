@@ -1,0 +1,10 @@
+{
+	"id": 12,
+	"email": "luby@admin.com",
+	"is_admin": 0,
+	"name": "Luby",
+	"token": "2aebcea1-f0d7-45d4-9b0b-895c63fc71c2",
+	"token_created_at": "2022-04-04T14:47:23.012Z",
+	"created_at": "2022-04-04T11:44:50.000-03:00",
+	"updated_at": "2022-04-04T11:47:23.012-03:00"
+}

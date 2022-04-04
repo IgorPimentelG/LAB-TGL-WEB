@@ -1,35 +1,23 @@
 import { ELEMENTS } from '../elements';
+import { Form } from '../index';
 
-class SignUp {
+class SignUp extends Form {
 
     insertData(name: string, email: string, password: string) {
-        this.getInputName().type(name);
-        this.getInputEmail().type(email);
-        this.getInputPassword().type(password);
+        super.getNameInput().type(name);
+        super.getEmailInput().type(email);
+        super.getPasswordInput().type(password);
     }
 
     clearForm() {
-        this.getInputName().clear();
-        this.getInputEmail().clear();
-        this.getInputPassword().clear();
+        super.getNameInput().clear();
+        super.getEmailInput().clear();
+        super.getPasswordInput().clear();
     }
 
-    register() {
+    submit() {
         cy.get(`[data-cy="${ELEMENTS.BUTTON_REGISTER}"]`).click();
     }  
-
-    // Getters
-    getInputName() {
-        return cy.get(`[data-cy="${ELEMENTS.INPUT_NAME}"]`);
-    }
-
-    getInputEmail() {
-        return  cy.get(`[data-cy="${ELEMENTS.INPUT_EMAIL}"]`);
-    }
-
-    getInputPassword() {
-        return cy.get(`[data-cy="${ELEMENTS.INPUT_PASSWORD}"]`);
-    }
 }
 
 export default new SignUp();

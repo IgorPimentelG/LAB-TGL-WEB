@@ -1,8 +1,8 @@
 /// <reference types="cypress"/>
 // @ts-check
 
-const SignUp = require('../../support/pages/Forms/SignUp/index');
-const Toast = require('../../support/components/Toast/index');
+import Toast from '../../support/components/Toast/index';
+import SignUp from '../../support/pages/Forms/SignUp/index';
 
 describe('User Registration Tests', () => {
 
@@ -16,71 +16,29 @@ describe('User Registration Tests', () => {
         SignUp.clearForm();
     });
 
-    it('Should invalidate the empty inputs', () => {
-        SignUp.register();
+    it('Should invalidate when empty inputs', () => {
+        SignUp.submit();
         Toast.verifyMessage('Informe o seu nome');
         Toast.verifyMessage('Insira sua senha');
         Toast.verifyMessage('Insira o seu e-mail');
     });
 
     it('Should invalidate the name input', () => {   
-        const email = 'labluby@email.com';
-        const password = 'secret';
-        
-        SignUp.insertData('     ', email, password);
-        SignUp.register();
-        Toast.verifyMessage('Informe o seu nome');
-
-        SignUp.clearForm();
-        SignUp.insertData('Lab Luby 1', email, password);
-        SignUp.register();
-        Toast.verifyMessage('Nome inválido');
-
-        SignUp.clearForm();
-        SignUp.insertData('La', email, password);
-        SignUp.register();
-        Toast.verifyMessage('Nome muito curto');
+        SignUp.getEmailInput().type('luby@admin.com');
+        SignUp.getPasswordInput().type('secret');
+        SignUp.validationNameInput();
     });
 
     it('Should invalidate the e-mail input', () => {
-        SignUp.insertData('LabLuby', 'luby@com', 'secret');
-        SignUp.register();
-        Toast.verifyMessage('Insira um e-mail válido');
-
-        SignUp.clearForm();
-
-        SignUp.insertData('LabLuby', '       ', 'secret');
-        SignUp.register();
-        Toast.verifyMessage('Insira um e-mail válido');
+       SignUp.getNameInput().type('Luby');
+       SignUp.getPasswordInput().type('secret');
+       SignUp.validationEmailInput();
     });
 
     it('Should invalidate the password input', () => {
-        const name = 'LabLuby';
-        const email = 'labluby@email.com';
-
-        SignUp.insertData(name, email, '          ');
-        SignUp.register();
-        Toast.verifyMessage('Insira sua senha');
-
-        SignUp.clearForm();
-
-        SignUp.insertData(name, email, '<html> </html>');
-        SignUp.register();
-        Toast.verifyMessage('É Permitido somente caracteres alfanuméricos e símbolos [-, #, @, +, =]');
-
-        SignUp.clearForm();
-
-        SignUp.insertData(name, email, '123');
-        SignUp.register();
-        Toast.verifyMessage('Mínimo de 6 caracteres para a senha');
-
-        SignUp.clearForm();
-        
-        SignUp.insertData(name, email, '01234567891234567');
-        SignUp.register();
-        Toast.verifyMessage('Máximo de 16 caracteres para a senha');
-
-        SignUp.clearForm();
+        SignUp.getNameInput().type('Luby');
+        SignUp.getEmailInput().type('luby@admin.com');
+        SignUp.validationPasswordInput();
     });
 
     it('Should invalidate the E-mail address already exists', () => {
@@ -91,7 +49,7 @@ describe('User Registration Tests', () => {
         }).as('post-createUserError');
 
         SignUp.insertData('Lab Luby', 'luby@admin.com', 'secret');
-        SignUp.register();
+        SignUp.submit();
        
         cy.wait('@post-createUserError')
         .its('response.body')
@@ -111,7 +69,7 @@ describe('User Registration Tests', () => {
         }).as('post-createUserSuccess');
 
         SignUp.insertData('LabLuby', 'luby@admin.com', '_123456');
-        SignUp.register();
+        SignUp.submit();
 
         cy.wait('@post-createUserSuccess')
         .its('response.body')

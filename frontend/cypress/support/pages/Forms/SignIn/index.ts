@@ -1,28 +1,24 @@
-import { ELEMENTS } from './../elements';
+import { Form } from '../index';
+import { ELEMENTS } from '../elements';
 
-class SignIn {
+class SignIn extends Form {
 
     insertData(email: string, password: string) {
-        this.getEmailInput().type(email);
-        this.getPasswordInput().type(password);
+        super.getEmailInput().type(email);
+        super.getPasswordInput().type(password);
     }
 
-    logIn() {
-        cy.get(`[data-cy="${ELEMENTS.BUTTON_LOGIN}"]`).click();
+    submit() {
+       this.getButtonLogIn().click();
     }
 
     clearForm() {
-        this.getEmailInput().clear();
-        this.getPasswordInput().clear();
+        super.getEmailInput().clear();
+        super.getPasswordInput().clear();
     }
 
-    // Getters
-    getEmailInput() {
-        return cy.get(`[data-cy="${ELEMENTS.INPUT_EMAIL}"]`);
-    }
-
-    getPasswordInput() {
-        return cy.get(`[data-cy="${ELEMENTS.INPUT_PASSWORD}"]`);
+    getButtonLogIn() {
+        return cy.get(`[data-cy="${ELEMENTS.BUTTON_LOGIN}"]`);
     }
 }
 

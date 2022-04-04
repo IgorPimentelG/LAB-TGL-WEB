@@ -7,14 +7,3 @@ Cypress.Commands.add('autoLogin', (router: string) => {
     });
 });
 
-Cypress.Commands.add('validateEmailInput', () => {
-
-});
-
-Cypress.Commands.add('validatePasswordInput', () => {
-
-});
-
-Cypress.Commands.add('validateNameInput', () => {
-
-})
