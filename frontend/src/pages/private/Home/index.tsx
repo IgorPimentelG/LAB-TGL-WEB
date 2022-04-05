@@ -123,9 +123,9 @@ const Home = () => {
                     </ContainerButton>
                 </ContainerOptions>
                 
-                <ContainerBets ref={containerBetsRef} onScroll={onContainerBetsScroll}>
+                <ContainerBets ref={containerBetsRef} onScroll={onContainerBetsScroll} data-cy='container-bets'>
                     {betsFilter.length === 0 && 
-                        <ContainerWarning>
+                        <ContainerWarning data-cy='container-warning'>
                             <Label>Nenhuma aposta realizada</Label>
                             <FaFrown color='#9D9D9D'/>
                         </ContainerWarning>

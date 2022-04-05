@@ -72,7 +72,7 @@ describe('Reset Password Tests', () => {
         Toast.verifyMessage('A confirmação de senha é diferente da senha escolhida');
     });
 
-    it('Should change password user with success', () => {
+    it('Should change the password of user with success', () => {
         cy.request({
             method: 'POST',
             url: 'http://localhost:3333/reset',
@@ -92,7 +92,7 @@ describe('Reset Password Tests', () => {
         });
     });
 
-    it('Should login with new password', () => {
+    it('Should login with the new password', () => {
         cy.intercept('POST', '/login').as('post-loginSuccess');
 
         SignIn.insertData('luby@admin.com', Cypress.env('newPassword'));

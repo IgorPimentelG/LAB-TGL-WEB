@@ -1,3 +1,6 @@
 {
-    "baseUrl": "http://localhost:3000"
+    "baseUrl": "http://localhost:3000",
+    "env": {
+        "api": "http://127.0.0.1:3333"
+    }
 }

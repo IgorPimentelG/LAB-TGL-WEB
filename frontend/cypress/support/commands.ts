@@ -10,7 +10,7 @@ Cypress.Commands.add('autoLogin', (router: string) => {
 Cypress.Commands.add('authUserTest', () => {
     cy.request({
         method: 'POST',
-        url: 'http://localhost:3333/login',
+        url: `${Cypress.env('api')}/login`,
         body: {
             email: 'luby@test.com',
             password: 'secret'

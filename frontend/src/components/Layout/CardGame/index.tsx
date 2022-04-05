@@ -19,7 +19,7 @@ const CardGame: React.FC<{ data: ItemListGame }> = React.memo(
                 <Content>
                     <LabelNumbers>{numbersFormat.join(', ')}</LabelNumbers>
                     <LabelInfo>{dateFormat} - ({priceFormat})</LabelInfo>
-                    <LabelType color={configGame.color}>{configGame.type}</LabelType>
+                    <LabelType color={configGame.color} data-cy='type-game'>{configGame.type}</LabelType>
                 </Content>
             </Container>
         );

@@ -61,7 +61,7 @@ describe('User Registration Tests', () => {
         cy.url().should('equal', `${Cypress.config().baseUrl}/sign-up`);
     });
 
-    it('You must the register with success', () => {
+    it('Should register a new user with success', () => {
         cy.intercept('POST', '/user/create', (req) => {
             req.continue((res) => {
                 res.send(200, { fixture: 'user.json'});
@@ -75,7 +75,6 @@ describe('User Registration Tests', () => {
         .its('response.body')
         .then(() => {
             Toast.verifyMessage('Conta criada com sucesso');
-            cy.wait(1000);
             cy.url().should('equal', `${Cypress.config().baseUrl}/sign-in`);
         });
     });

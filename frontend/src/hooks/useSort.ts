@@ -6,7 +6,8 @@ import { Game } from '@shared/model/types/game';
 const useSort = () => {
 
     const games = useSelector<RootState, Game[]>((state) => state.gamesTypes.types);
-    const searchName = (id: number): string => games.filter((item) => item.id === id)[0].type;
+
+    const searchName = (id: number): string => games.length === 0 ? '' : games.filter((item) => item.id === id)[0].type;
 
     const sortBets = (betA: Bet, betB: Bet): number => {
         const gameNameA =  searchName(betA.game_id);
