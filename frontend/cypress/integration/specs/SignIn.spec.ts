@@ -18,17 +18,17 @@ describe('Authentication Tests', () => {
         Toast.verifyMessage('Insira sua senha');
     });
 
-    it('Should invalidate the e-mail input', () => {
+    it('Should invalidate the invalid email address input', () => {
         SignIn.getPasswordInput().type('secret');
         SignIn.validationEmailInput();
     });
 
-    it('Should invalidate the password input', () => {
+    it('Should invalidate the invalid password input', () => {
         SignIn.getEmailInput().type('luby@admin.com');
         SignIn.validationPasswordInput();
     });
 
-    it('Should invalidate the unregistered user', () => {
+    it('Should invalidate when user is unregistered', () => {
         cy.intercept('POST', '/login', {
             statusCode: 401,
             fixture: 'userError.json'

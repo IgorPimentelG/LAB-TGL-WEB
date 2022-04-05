@@ -2,6 +2,15 @@ class Toast {
 
     verifyMessage(message: string) {
         this.getToast().should('contain.text', message);
+        this.isVisible();
+    }
+
+    verifyMessageRegex(regexp: RegExp) {
+        cy.contains(regexp);
+        this.isVisible();
+    }
+
+    isVisible() {
         this.getToast().should('be.visible');
     }
 

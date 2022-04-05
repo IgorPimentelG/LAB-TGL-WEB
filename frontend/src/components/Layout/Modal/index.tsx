@@ -11,7 +11,7 @@ const ModalConfirm: React.FC<{ data: IDataModal }> = ({ data }) => {
     const game = useSearchConfigGame(data.bet ? data.bet.game_id : 0);
 
     return(
-        <Container>
+        <Container data-cy='modal'>
             <Card shadow={true}>
                <ContainerCard>
                     <Title>{data.title}</Title>
@@ -30,10 +30,11 @@ const ModalConfirm: React.FC<{ data: IDataModal }> = ({ data }) => {
                     }
                     
                     <ContainerOptions>
-                        <Touchable color='#FF6347' onClick={data.onCancel}>
+                        <Touchable color='#FF6347' onClick={data.onCancel} data-cy='button-cancel'>
                             Cancelar
                         </Touchable>
                         <Touchable 
+                            data-cy='button-confirm'
                             color='#27C383'
                             onClick={data.onConfirm}
                         >

@@ -1,6 +1,7 @@
 /// <reference types="cypress"/>
 // @ts-check
 
+import SignIn from '../../support/pages/Forms/SignIn/index';
 import Toast from '../../support/components/Toast/index';
 import ResetPassword from '../../support/pages/Forms/ResetPassword/index';
 import ChangePassword from '../../support/pages/Forms/ChangePassword/index';
@@ -16,7 +17,7 @@ describe('Reset Password Tests', () => {
        .then((loc) => {
             if(loc.pathname === '/reset-password') {
                 ResetPassword.clearForm();
-            } else {
+            } else if(loc.pathname !== '/sign-in') {
                 ChangePassword.clearForm();
             }
        });
@@ -72,6 +73,36 @@ describe('Reset Password Tests', () => {
     });
 
     it('Should change password user with success', () => {
-       
+        cy.request({
+            method: 'POST',
+            url: 'http://localhost:3333/reset',
+            body: {
+                email: 'luby@admin.com'
+            }
+        }).then((res) => {
+            const token = res.body.token;
+            cy.visit(`/reset-password/${token}`)
+
+            Cypress.env('newPassword', String(Date.now()).slice(0, 6));
+            ChangePassword.insertData( Cypress.env('newPassword'), Cypress.env('newPassword'));
+            ChangePassword.submit();
+
+            Toast.verifyMessage('Senha alterada com sucesso');
+            cy.url().should('equal', `${Cypress.config().baseUrl}/sign-in`);
+        });
+    });
+
+    it('Should login with new password', () => {
+        cy.intercept('POST', '/login').as('post-loginSuccess');
+
+        SignIn.insertData('luby@admin.com', Cypress.env('newPassword'));
+        SignIn.submit(); 
+
+        cy.wait('@post-loginSuccess').then((res) => {
+            expect(res.response.statusCode).to.be.equal(200);
+        });
+
+        Toast.verifyMessage('Seja Bem-Vindo');
+        cy.url().should('equal', `${Cypress.config().baseUrl}/home`);
     });
 });

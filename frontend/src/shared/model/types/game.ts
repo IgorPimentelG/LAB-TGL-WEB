@@ -9,6 +9,7 @@ export type Game = {
 };
 
 export type ConfigGame = {
+    id: number;
     name: string;
     color: string;
     active: boolean;

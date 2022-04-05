@@ -29,13 +29,13 @@ describe('User Registration Tests', () => {
         SignUp.validationNameInput();
     });
 
-    it('Should invalidate the e-mail input', () => {
+    it('Should invalidate the invalid email address input', () => {
        SignUp.getNameInput().type('Luby');
        SignUp.getPasswordInput().type('secret');
        SignUp.validationEmailInput();
     });
 
-    it('Should invalidate the password input', () => {
+    it('Should invalidate the invalid password input', () => {
         SignUp.getNameInput().type('Luby');
         SignUp.getEmailInput().type('luby@admin.com');
         SignUp.validationPasswordInput();

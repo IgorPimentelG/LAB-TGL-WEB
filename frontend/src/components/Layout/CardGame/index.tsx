@@ -14,7 +14,7 @@ const CardGame: React.FC<{ data: ItemListGame }> = React.memo(
         const numbersFormat = data.numbers.split(',').map((item) => `${Number(item) <= 9 ? '0' : ''}${item}`);
           
         return(
-            <Container>
+            <Container data-cy='card-game'>
                 <Bar color={configGame.color}/>
                 <Content>
                     <LabelNumbers>{numbersFormat.join(', ')}</LabelNumbers>

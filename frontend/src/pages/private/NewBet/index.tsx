@@ -44,10 +44,7 @@ const NewBet = () => {
     const { addBets } = authActions;
 
     const [newBet, setNewBet] = useState<number[]>([]);
-    const [bets, setBets] = useState<{
-        cart: NewBetCart[];
-        total: number;
-    }>({ cart: [], total: 0 });
+    const [bets, setBets] = useState<{cart: NewBetCart[], total: number}>({ cart: [], total: 0 });
     const [showIconScroll, setShowIconScroll] = useState<boolean>(false);
     const [showModalConfirmSave, setShowModalConfirmSave] = useState(false);
     const [showModalConfirmDelete, setShowModalConfirmDelete] = useState<{show: boolean, id: number}>();
@@ -256,15 +253,15 @@ const NewBet = () => {
                     
                     <ContainterOptions>
                         <ContainerButtonOptions>
-                            <ButtonOption reverser={false} onClick={handlerCompleteGame}>
+                            <ButtonOption reverser={false} onClick={handlerCompleteGame} data-cy='button-complete-game'>
                                 <span>Complete game</span>
                             </ButtonOption>
-                            <ButtonOption reverser={false} onClick={handlerClearGame}>
+                            <ButtonOption reverser={false} onClick={handlerClearGame} data-cy='button-clear-game'>
                                 <span>Clear game</span>
                             </ButtonOption>
                         </ContainerButtonOptions>
                         <ContainerButtonOptions>
-                            <ButtonOption reverser={true} onClick={handlerAddToCart}>
+                            <ButtonOption reverser={true} onClick={handlerAddToCart} data-cy="button-add-cart">
                                 <LabelButton>
                                     <FiShoppingCart style={{marginRight: 5}}/> Add to cart
                                 </LabelButton>
@@ -278,7 +275,7 @@ const NewBet = () => {
                         <Card shadow={false}>
                             <Title>CART</Title>
 
-                            <ContainerCart ref={containerCartRef} onScroll={handlerScrollCart}>
+                            <ContainerCart ref={containerCartRef} onScroll={handlerScrollCart} data-cy='container-cart'>
                                 {bets.cart.length === 0 && <Text>Carrinho vazio</Text>}
                                 {bets.cart.length !== 0 &&
                                     bets.cart.map((item, index) => {
@@ -305,7 +302,7 @@ const NewBet = () => {
                             </LabelTotal></Title>
 
                             <ButtonSave onClick={handlerSave}>
-                                <LabelButton>
+                                <LabelButton data-cy='button-save'>
                                     Save <FiArrowRight/>
                                 </LabelButton>
                             </ButtonSave>

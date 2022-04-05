@@ -12,7 +12,7 @@ const ItemBet: React.FC<{ data: IItemCart }> = ({ data }) => {
     return(
         <Container>
           { data.showIcon &&
-            <Touchable onClick={data.onRemove}>
+            <Touchable onClick={data.onRemove} data-cy='button-remove-item'>
                 <FiTrash2 size={20}/>
             </Touchable>
             }
